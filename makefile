@@ -14,7 +14,7 @@ qemu:
 	qemu-system-i386 -cdrom luna.iso
 
 multiboot:
-	grub-file --is-x86-multiboot luna.bin
+	grub-file --is-x86-multiboot2 bin/luna.bin
 
 clean:
-	rm object/*.o luna.bin
+	rm object/*.o bin/luna.bin luna.iso

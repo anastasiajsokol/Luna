@@ -1,16 +1,27 @@
-%define ALIGN    (1 << 0)        ; align loaded modules on page boundaries
-%define MEMINFO  (1 << 1)        ; provide memory map
-
-FLAGS:      equ ALIGN | MEMINFO  ; this is the Multiboot 'flag' field
-MAGIC:      equ 0x1BADB002       ; 'magic number' lets bootloader find the header
-CHECKSUM:   equ -(MAGIC + FLAGS) ; checksum of above, to prove we are multiboot
-
-; GRUB multiboot header
+; multiboot2 header
 section .multiboot
+    MAGIC: equ 0xe85250d6   ; multiboot2 magic number
+    MODE: equ 0             ; mode for x86 protected mode
+
+    %define header_size (multiboot_header_end - multiboot_header_start) ; represents the size of the header
+    %define checksum (-(MAGIC + MODE + header_size))                    ; multiboot2 checksum
+
     align 4
-    dd MAGIC
-    dd FLAGS
-    dd CHECKSUM
+
+    multiboot_header_start:
+        
+        ; starting structure
+        dd MAGIC
+        dd MODE
+        dd header_size
+        dd checksum
+
+        ; required end tag
+        dw 0    ; type
+        dw 0    ; flag
+        dd 8    ; size
+
+    multiboot_header_end:
 
 ; 16 byte aligned 16 KiB stack
 section .bss
@@ -32,15 +43,6 @@ section .text
 
         ; setup stack
         mov esp, stack_top
-
-        ; This is a good place to initialize crucial processor state before the
-        ; high-level kernel is entered. It's best to minimize the early
-        ; environment where crucial features are offline. Note that the
-        ; processor is not fully initialized yet: Features such as floating
-        ; point instructions and instruction set extensions are not initialized
-        ; yet. The GDT should be loaded here. Paging should be enabled here.
-        ; C++ features such as global constructors and exceptions will require
-        ; runtime support to work as well.
 
         ; enter high-level kernel (stack must still be aligned to 16 bytes)
         call kernel_main
