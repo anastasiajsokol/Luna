@@ -16,6 +16,14 @@ section .multiboot
         dd header_size
         dd checksum
 
+        ; framebuffer tag
+        dw 5    ; type
+        dw 0    ; flag
+        dd 20   ; size
+        dd 1280 ; width
+        dd 1024 ; height
+        dd 15   ; depth
+        
         ; required end tag
         dw 0    ; type
         dw 0    ; flag

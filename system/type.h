@@ -1,13 +1,13 @@
 #ifndef SYSTEM_TYPE_H
 #define SYSTEM_TYPE_H
 
-using int8_t = char;
-using uint8_t = unsigned char;
+using i8 = char;
+using u8 = unsigned char;
 
-using int16_t = short;
-using uint16_t = unsigned short;
+using i16 = short;
+using u16 = unsigned short;
 
-using int32_t = int;
-using uint32_t = unsigned int;
+using i32 = int;
+using u32 = unsigned int;
 
 #endif

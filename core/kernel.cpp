@@ -1,5 +1,3 @@
-#include <boot/multiboot.h>
-
-extern "C" void kernel_main(sys::MultibootInformation *information){
+extern "C" void kernel_main(){
     // do nothing
 }
