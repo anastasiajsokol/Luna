@@ -17,7 +17,7 @@ section .multiboot
         dd checksum
 
         ; framebuffer tag
-        dw 5    ; type
+        dw 8    ; type
         dw 0    ; flag
         dd 20   ; size
         dd 1280 ; width
