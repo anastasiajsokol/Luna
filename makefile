@@ -10,6 +10,9 @@ iso:
 	grub-mkrescue -o luna.iso /tmp/lunaiso
 	rm -r /tmp/lunaiso
 
+qemu:
+	qemu-system-i386 -cdrom luna.iso
+
 multiboot:
 	grub-file --is-x86-multiboot luna.bin
 
