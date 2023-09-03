@@ -11,6 +11,7 @@ iso:
 	rm -r /tmp/lunaiso
 
 qemu:
+	unset GTK_PATH
 	qemu-system-i386 -cdrom luna.iso
 
 multiboot:
