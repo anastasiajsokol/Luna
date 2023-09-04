@@ -23,6 +23,8 @@ section .multiboot
         dd 1280 ; width
         dd 1024 ; height
         dd 15   ; depth
+
+        align 8
         
         ; required end tag
         dw 0    ; type
